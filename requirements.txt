@@ -1,1 +1,2 @@
+setuptools
 collegebaseball @ git+https://github.com/smomara/collegebaseball@main
