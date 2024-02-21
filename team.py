@@ -29,7 +29,14 @@ column_transformations = {
 }
 
 def get_batting_df(school_name: str, year: int) -> pd.DataFrame:
-    team_stats_df = ncaa_team_stats(school_name, year, 'batting')[BATTING_COLS].sort_values('wRC', ascending=False)
+    team_stats_df = ncaa_team_stats(school_name, year, 'batting')
+    existing_cols = team_stats_df.columns
+    
+    missing_cols = [col for col in BATTING_COLS if col not in existing_cols]
+    if missing_cols:
+        raise ValueError(f"Missing columns in the dataset: {missing_cols}")
+
+    team_stats_df = team_stats_df[BATTING_COLS].sort_values('wRC', ascending=False)
     transformed_df = pd.DataFrame(columns=[column_transformations.get(col, (col, None))[0] for col in BATTING_COLS])
 
     for col in BATTING_COLS:
