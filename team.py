@@ -30,7 +30,7 @@ column_transformations = {
 
 def get_batting_df(school_name: str, year: int) -> pd.DataFrame:
     team_stats_df = ncaa_team_stats(school_name, year, 'batting')
-    print(team_stats_df)
+    st.write(team_stats_df)
     existing_cols = team_stats_df.columns
     
     missing_cols = [col for col in BATTING_COLS if col not in existing_cols]
